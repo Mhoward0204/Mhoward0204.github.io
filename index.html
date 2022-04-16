@@ -1,12 +1,9 @@
 <!DOCTYPE html><html>
-<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1">
+<head> <meta charset="UTF-8">
     <title>Major List</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    
-
-    <style> .btn{margin: 5px} </style>
 </head>
 
 <body>
@@ -17,12 +14,12 @@
          <button type='button' onClick="getData('BUS')">BUS Majors</button>  
       </div>
   
-  <h3>We filter our dataset by meal</h3>
+  <h3>We filter our dataset by major</h3>
   <div id="majorTable"></div>
   </div>  
   </body>
 
- <!-- Handlebars template -->
+ 
   <script type="text/x-handlebars-template" id="tableTemplate">
       <table>
           <tr><th>Name</th><th>Major</th><th>Midterm</th><th>Final</th></tr>
@@ -33,23 +30,23 @@
              {{/each}}
       </table>
   </script>
-
-  <!-- application ajax code -->
+  
+  
   <script>
 
-  function getData(selected_major) {      // called when a button is clicked. paramter selected_meal = breakfast, lunch, or dinner
+  function getData(selected_major) {
       var request = new XMLHttpRequest();
-      request.open('GET', 'cit5students.json');      // open Ajax request for data file menu_items.json
+      request.open('GET', 'cit5students.json');
  
-      request.onload = function() {                     // when the data comes back, browser calls this function
-         var data = JSON.parse(request.responseText);    // convert json to javascript array of objects
+      request.onload = function() {
+         var data = JSON.parse(request.responseText);
 
-         meal_items = data.filter(getMajor)       // meal_itmes array will contain the filtered data using the getMeal() function
+         meal_items = data.filter(getMajor)
          function getMajor(student) {
-            return student.major == selected_major;   // the new meal_items array will contain only items for the selected meal
+            return student.major == selected_major;
          }
         
-        if (request.status == 200) {    // if all is well as data returns, then compile and populate the template
+        if (request.status == 200) {
             var templateText = document.getElementById('tableTemplate').innerHTML;
             var compiledTemplateText = Handlebars.compile(templateText);       
             compiledHtml = compiledTemplateText({ rows: meal_items })          
