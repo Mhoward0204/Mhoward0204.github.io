@@ -1,53 +1,53 @@
 <!DOCTYPE html>
-  <html><head><title>cars 4 sale</title>
+  <html><head><title>Advisees</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script> 
 </head>
 
-<body ng-app = "carsApp">
+<body ng-app = "AdviseesApp">
 
 
 <div class="container">
     <nav class="navbar navbar-inverse">
     <div class="navbar-header">
-         <a class="navbar-brand" href="#">Our Website</a>
+         <a class="navbar-brand" href="#">CIT 140</a>
     </div>
     <div>
          <ul class="nav navbar-nav">
-             <li class="active"><a href="index.html">Welcome</a></li>
-             <li><a href="all_cars.html">All the Cars</a></li>
+             <li class="active"><a href="index.html">Advisee List</a></li>
+             <li><a href="all_cars.html">Grade Point Averages</a></li>
          </ul>
     </div>
-    </nav>    <!-- end nav-bar -->
+    </nav>
 
     <div ng-controller = "allCtrl">
 
-    <h2>All Cars</h2>
+    <h2>Advisees</h2>
        <p><input type='text' ng-model='search_text' > Enter Search text</p>
        <table class="table table-bordered table-striped">
            <tr>
              <th>SID</th> <th>Last Name</th> <th>First Name</th> <th>GPA</th>
            </tr>
   
-           <tr ng-repeat = "car in cars | filter:search_text">  <!-- filter by search textbox value -->
-               <td>{{car.sid}}</td>
-               <td>{{car.last_name}}</td>
-               <td>{{car.first_name}}</td>
-               <td>{{car.gpa}}</td>
+           <tr ng-repeat = "stu in students | filter:search_text">  <!-- filter by search textbox value -->
+               <td>{{stu.id}}</td>
+               <td>{{stu.last_name}}</td>
+               <td>{{stu.first_name}}</td>
+               <td>{{stu.gpa_points}}</td>
            </tr>
        </table>
-     </div>   <!-- end carsApp -->
-  </div>   <!-- end class= 'container' -->
+     </div>
+  </div>
 
   <script>
-      var app = angular.module('carsApp', []);
+      var app = angular.module('AdviseesApp', []);
       app.controller('allCtrl', function($scope, $http) {
   
-          $http.get("students.json")          // get all the car data
+          $http.get("students.json")
           .then(function (response) {
-               $scope.cars = response.data;    // put the data in the table
+               $scope.students = response.data;
           });
 
        });
